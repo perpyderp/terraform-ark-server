@@ -1,12 +1,21 @@
 locals {
   server_sg_ingress = [
     {
+      port            = 22
+      protocol        = "tcp"
+      description     = "Allow ssh into server"
+      security_groups = []
+      cidr_blocks = [
+        var.my_ip
+      ]
+    },
+    {
       port            = 7777
       protocol        = "udp"
       description     = "Allow traffic on game port"
       security_groups = []
       cidr_blocks = [
-        "47.16.25.43/32"
+        var.my_ip
       ]
     },
     {
@@ -15,7 +24,7 @@ locals {
       description     = "Peer port"
       security_groups = []
       cidr_blocks = [
-        "47.16.25.43/32"
+        var.my_ip
       ]
     },
     {
@@ -24,7 +33,7 @@ locals {
       description     = "Query port"
       security_groups = []
       cidr_blocks = [
-        "47.16.25.43/32"
+        var.my_ip
       ]
     },
     {
@@ -33,7 +42,7 @@ locals {
       description     = "RCONport"
       security_groups = []
       cidr_blocks = [
-        "47.16.25.43/32"
+        var.my_ip
       ]
     }
   ]

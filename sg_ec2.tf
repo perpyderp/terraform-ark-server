@@ -27,39 +27,3 @@ resource "aws_security_group" "this" {
     }
   }
 }
-
-resource "aws_security_group_rule" "peer" {
-  type      = "ingress"
-  from_port = 0
-  to_port   = 7778
-  protocol  = "udp"
-  cidr_blocks = [
-    "47.16.25.43/32"
-  ]
-  ipv6_cidr_blocks  = []
-  security_group_id = "sg-123456"
-}
-
-resource "aws_security_group_rule" "query" {
-  type      = "ingress"
-  from_port = 0
-  to_port   = 27015
-  protocol  = "udp"
-  cidr_blocks = [
-    "47.16.25.43/32"
-  ]
-  ipv6_cidr_blocks  = []
-  security_group_id = "sg-123456"
-}
-
-resource "aws_security_group_rule" "rcon" {
-  type      = "ingress"
-  from_port = 0
-  to_port   = 27020
-  protocol  = "tcp"
-  cidr_blocks = [
-    "47.16.25.43/32"
-  ]
-  ipv6_cidr_blocks  = []
-  security_group_id = "sg-123456"
-}
