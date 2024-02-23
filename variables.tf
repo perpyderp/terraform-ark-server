@@ -7,7 +7,7 @@ variable "server_name" {
 variable "server_launch_template_userdata_script_name" {
   type        = string
   description = "Name of file for userdata script"
-  default     = null
+  default     = "server_userdata.sh"
 }
 
 variable "ebs_volume_size" {
@@ -21,7 +21,7 @@ variable "key_name" {
   description = "Name of key pair to SSH into server"
 }
 
-variable "map" {
+variable "server_map" {
   type        = string
   description = "Ark map (level name) to be created"
   default     = "Ragnarok"
@@ -39,8 +39,24 @@ variable "map" {
       "Gen2",
       "LostIsland",
       "Fjordur",
-    ], var.map))
+    ], var.server_map))
     error_message = "You must have a valid map (level) name."
+  }
+}
+
+variable "ports" {
+  type = object({
+    game_port  = number
+    query_port = number
+    peer_port  = number
+    rcon_port  = number
+  })
+  description = "Ports to allow game connections, steam to find server, etc."
+  default = {
+    game_port  = 7777
+    peer_port  = 7778
+    query_port = 27015
+    rcon_port  = 27020
   }
 }
 
@@ -75,4 +91,28 @@ variable "instance_type" {
 variable "my_ip" {
   type        = string
   description = "Your IP address. Used for security groups for server to be accessible to you"
+  sensitive   = true
+}
+
+variable "server_password" {
+  type        = string
+  description = "Password of your server"
+  sensitive   = true
+}
+
+variable "admin_password" {
+  type        = string
+  description = "Password for admins"
+  sensitive   = true
+}
+
+variable "max_players" {
+  type        = number
+  description = "Max number of players allowed in the server"
+  default     = 20
+}
+
+variable "game_mods" {
+  type    = string
+  default = ""
 }
